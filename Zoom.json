@@ -7,6 +7,7 @@
                     "users_get": {
                         "method": "get",
                         "call": {
+                            "mode": "normal",
                             "path": "/users"
                         },
                         "processing_options": {
@@ -43,7 +44,7 @@
     },
     "rest": {
         "config": {
-            "baseUrl": "{tenant_id}",
+            "baseUrl": "https://api.zoom.us/v2/",
             "get": {
                 "maxPageCount": 500,
                 "query_parameters": {
@@ -51,20 +52,30 @@
                 "pagination": {
                     "mode": "generic",
                     "path":[],
+                    "totalPageAttribute": "page_count",
                     "params":{
                         "page_number":"{page_number}",
                         "page_size":300
                     }
                 }
             },
-            "authentication": "aeries",
+            "authentication": "jwt",
             "call_handling": "generic",
             "test_connection": {
                 "url": "/users"
             },
-            "accept": "application/json",
-            "headers": {
-                "Authorization": "Bearer {client_secret}"
+            "accept": "application/json"
+        },
+        "authOptions": {
+            "authUrl": "https://api.zoom.us/oauth/token",
+            "directToken":true,
+            "JWT": {
+                "iss": {
+                    "name": "clientId"
+                },
+                "exp": {
+                    "name": "oneHour"
+                }
             }
         }
     },
