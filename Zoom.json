@@ -2,12 +2,138 @@
     "schema": {
         "options": {},
         "crud_objects": {
-            "users": {
+            "devices": {
                 "operations": {
-                    "users_get": {
+                    "devicesList": {
                         "method": "get",
                         "call": {
-                            "path": "/users"
+                            "path": "/devices"
+                        },
+                        "processing_options": {
+                            "output_field": "devices"
+                        },
+                        "query_parameters": {}
+                    }
+                },
+                "parameters": {},
+                "key": "id",
+                "resources": {
+                    "id": "string*",
+                    "encryption": "string*",
+                    "ip": "string*",
+                    "name": "string*",
+                    "protocol": "string*"
+                }
+            },
+            "groups": {
+                "operations": {
+                    "groupsList": {
+                        "method": "get",
+                        "call": {
+                            "path": "/groups"
+                        },
+                        "processing_options": {
+                            "output_field": "groups"
+                        },
+                        "query_parameters": {}
+                    }
+                },
+                "parameters": {},
+                "key": "id",
+                "resources": {
+                    "id": "string*",
+                    "name": "string*",
+                    "total_members": "number*"
+                }
+            },
+            "roles": {
+                "operations": {
+                    "rolesList": {
+                        "method": "get",
+                        "call": {
+                            "path": "/roles"
+                        },
+                        "processing_options": {
+                            "output_field": "roles"
+                        },
+                        "query_parameters": {}
+                    }
+                },
+                "parameters": {},
+                "key": "id",
+                "resources": {
+                    "description": "string*",
+                    "id": "string*",
+                    "name": "string*",
+                    "total_members": "number*"
+                }
+            },
+            "rooms": {
+                "operations": {
+                    "roomsList": {
+                        "method": "get",
+                        "call": {
+                            "path": "/rooms"
+                        },
+                        "processing_options": {
+                            "output_field": "rooms"
+                        },
+                        "query_parameters": {}
+                    }
+                },
+                "parameters": {},
+                "key": "id",
+                "resources": {
+                    "activation_code": "string*",
+                    "id": "string*",
+                    "location_id": "string*",
+                    "name": "string*",
+                    "room_id": "string*",
+                    "status": "string*"
+                }
+            },
+            "sip_phones": {
+                "operations": {
+                    "sip_phonesList": {
+                        "method": "get",
+                        "call": {
+                            "path": "/sip_phones"
+                        },
+                        "processing_options": {
+                            "output_field": "phones"
+                        },
+                        "query_parameters": {}
+                    }
+                },
+                "parameters": {},
+                "key": "id",
+                "resources": {
+                    "authorization_name": "string*",
+                    "domain": "string*",
+                    "id": "string*",
+                    "password": "string*",
+                    "proxy_server": "string*",
+                    "proxy_server2": "string*",
+                    "proxy_server3": "string*",
+                    "register_server": "string*",
+                    "register_server2": "string*",
+                    "register_server3": "string*",
+                    "registration_expire_time": "number*",
+                    "transport_protocol": "string*",
+                    "transport_protocol2": "string*",
+                    "transport_protocol3": "string*",
+                    "user_email": "string*",
+                    "user_name": "string*",
+                    "voice_mail": "string*"
+                }
+            },
+            "users": {
+                "operations": {
+                    "usersList": {
+                        "method": "get",
+                        "call": {
+                            "path": "/users",
+                            "post_processing": "child_tables"
                         },
                         "processing_options": {
                             "output_field": "users"
@@ -35,7 +161,311 @@
                     "language": "string*",
                     "phone_number": "string*",
                     "status": "string*",
-                    "role_id": "string*"
+                    "role_id": "string*",
+                    "action":"string",
+                    "feature": {
+                        "zoom_phone":"_:string"
+                    }
+                    
+                }
+            },
+            "users_assistants": {
+                "operations": {
+                    "users_assistantsList": {
+                        "method": "get",
+                        "call": {
+                            "mode": "iteration",
+                            "table": "users",
+                            "iterator": "id",
+                            "path": "/users/{iterator}/assistants",
+                            "base": {
+                                "userId": "{iterator}"
+                            }
+                        },
+                        "processing_options": {
+                            "output_field": "assistants"
+                        },
+                        "query_parameters": {},
+                        "maxSessionCount": 20
+                    }
+                },
+                "parameters": {},
+                "key": "id",
+                "resources": {
+                    "email": "string*",
+                    "id": "string*",
+                    "userId": "string*"
+                }
+            },
+            "users_permissions": {
+                "operations": {
+                    "users_permissionsList": {
+                        "method": "get",
+                        "call": {
+                            "mode": "iteration",
+                            "table": "users",
+                            "iterator": "id",
+                            "path": "/users/{iterator}/permissions",
+                            "base": {
+                                "userId": "{iterator}"
+                            }
+                        },
+                        "processing_options": {
+                            "output_field": "permissions",
+                            "stringArrayColumnName": "permission"
+                        },
+                        "query_parameters": {},
+                        "maxSessionCount": 20
+                    }
+                },
+                "parameters": {},
+                "key": "userId",
+                "resources": {
+                    "permission": "string*",
+                    "userId": "string*"
+                }
+            },
+            "users_settings": {
+                "operations": {
+                    "users_settingsList": {
+                        "method": "get",
+                        "call": {
+                            "mode": "iteration",
+                            "table": "users",
+                            "iterator": "id",
+                            "path": "/users/{iterator}/settings",
+                            "base": {
+                                "userId": "{iterator}"
+                            }
+                        },
+                        "processing_options": {
+                            "output_field": null
+                        },
+                        "query_parameters": {},
+                        "maxSessionCount": 20
+                    }
+                },
+                "parameters": {},
+                "key": "id",
+                "resources": {
+                    "userId":"string*",
+                    "id": "string*",
+                    "audio_conferencing": {
+                        "toll_free_and_fee_based_toll_call": {
+                          "allow_webinar_attendees_dial": "_:boolean",
+                          "enable": "_:boolean"
+                        }
+                      },
+                      "email_notification": {
+                        "alternative_host_reminder": "_:boolean",
+                        "cancel_meeting_reminder": "_:boolean",
+                        "cloud_recording_available_reminder": "_:boolean",
+                        "jbh_reminder": "_:boolean",
+                        "recording_available_reminder_alternative_hosts": "_:boolean",
+                        "recording_available_reminder_schedulers": "_:boolean",
+                        "schedule_for_reminder": "_:boolean"
+                      },
+                      "feature": {
+                        "cn_meeting": "_:boolean",
+                        "concurrent_meeting": "_:string",
+                        "in_meeting": "_:boolean",
+                        "large_meeting": "_:boolean",
+                        "large_meeting_capacity": "_:number",
+                        "meeting_capacity": "_:number",
+                        "webinar": "_:boolean",
+                        "webinar_capacity": "_:number",
+                        "zoom_events": "_:boolean",
+                        "zoom_events_capacity": "_:number",
+                        "zoom_phone": "_:boolean",
+                        "zoom_iq_for_sales": "_:boolean",
+                        "zoom_whiteboard": "_:boolean"
+                      },
+                      "in_meeting": {
+                        "allow_host_to_enable_focus_mode": "_:boolean",
+                        "allow_live_streaming": "_:boolean",
+                        "post_meeting_feedback": "_:boolean",
+                        "whiteboard": "_:boolean",
+                        "allow_participants_chat_with": "_:number",
+                        "allow_users_save_chats": "_:number",
+                        "annotation": "_:boolean",
+                        "attendee_on_hold": "_:boolean",
+                        "attention_mode_focus_mode": "_:boolean",
+                        "auto_saving_chat": "_:boolean",
+                        "breakout_room": "_:boolean",
+                        "breakout_room_schedule": "_:boolean",
+                        "chat": "_:boolean",
+                        "closed_caption": "_:boolean",
+                        "closed_captioning": {
+                          "auto_transcribing": "_:boolean",
+                          "enable": "_:boolean",
+                          "save_caption": "_:boolean",
+                          "third_party_captioning_service": "_:boolean",
+                          "view_full_transcript": "_:boolean"
+                        },
+                        "co_host": "_:boolean",
+                        "custom_data_center_regions": "_:boolean",
+                        "custom_live_streaming_service": "_:boolean",
+                        "custom_service_instructions": "_:string",
+                        "data_center_regions": ["string"],
+                        "disable_screen_sharing_for_host_meetings": "_:boolean",
+                        "disable_screen_sharing_for_in_meeting_guests": "_:boolean",
+                        "e2e_encryption": "_:boolean",
+                        "entry_exit_chime": "_:string",
+                        "far_end_camera_control": "_:boolean",
+                        "feedback": "_:boolean",
+                        "file_transfer": "_:boolean",
+                        "group_hd": "_:boolean",
+                        "join_from_desktop": "_:boolean",
+                        "join_from_mobile": "_:boolean",
+                        "language_interpretation": {
+                          "custom_languages": "_:string",
+                          "enable": "_:boolean",
+                          "languages": ["_:string"]
+                        },
+                        "live_streaming_facebook": "_:boolean",
+                        "live_streaming_youtube": "_:boolean",
+                        "manual_captioning": {
+                          "allow_to_type": "_:boolean",
+                          "auto_generated_captions": "_:boolean",
+                          "full_transcript": "_:boolean",
+                          "manual_captions": "_:boolean",
+                          "save_captions": "_:boolean",
+                          "third_party_captioning_service": "_:boolean"
+                        },
+                        "meeting_reactions": "_:boolean",
+                        "meeting_survey": "_:boolean",
+                        "non_verbal_feedback": "_:boolean",
+                        "polling": "_:boolean",
+                        "private_chat": "_:boolean",
+                        "record_play_voice": "_:boolean",
+                        "remote_control": "_:boolean",
+                        "remote_support": "_:boolean",
+                        "request_permission_to_unmute": "_:boolean",
+                        "screen_sharing": "_:boolean",
+                        "share_dual_camera": "_:boolean",
+                        "show_a_join_from_your_browser_link": "_:boolean",
+                        "show_meeting_control_toolbar": "_:boolean",
+                        "slide_control": "_:boolean",
+                        "unchecked_data_center_regions": ["_:string"],
+                        "virtual_background": "_:boolean",
+                        "virtual_background_settings": {
+                          "allow_upload_custom": "_:boolean",
+                          "allow_videos": "_:boolean",
+                          "enable": "_:boolean"
+                        },
+                        "waiting_room": "_:boolean",
+                        "webinar_chat": {
+                          "allow_attendees_chat_with": "_:number",
+                          "allow_auto_save_local_chat_file": "_:boolean",
+                          "allow_panelists_chat_with": "_:number",
+                          "allow_panelists_send_direct_message": "_:boolean",
+                          "allow_users_save_chats": "_:number",
+                          "default_attendees_chat_with": "_:number",
+                          "enable": "_:boolean"
+                        },
+                        "webinar_live_streaming": {
+                          "custom_service_instructions": "_:string",
+                          "enable": "_:boolean",
+                          "live_streaming_reminder": "_:boolean",
+                          "live_streaming_service": ["_:string"]
+                        },
+                        "webinar_polling": {
+                          "advanced_polls": "_:boolean",
+                          "enable": "_:boolean"
+                        },
+                        "webinar_survey": "_:boolean",
+                        "who_can_share_screen": "_:string",
+                        "who_can_share_screen_when_someone_is_sharing": "_:string",
+                        "workplace_by_facebook": "_:boolean"
+                      },
+                      "profile": {
+                        "recording_storage_location": {
+                          "allowed_values": ["_:string"],
+                          "value": "_:string"
+                        }
+                      },
+                      "recording": {
+                        "ask_host_to_confirm_disclaimer": "_:boolean",
+                        "ask_participants_to_consent_disclaimer": "_:boolean",
+                        "auto_delete_cmr": "_:boolean",
+                        "auto_delete_cmr_days": "_:number",
+                        "record_files_separately": {
+                          "active_speaker": "_:boolean",
+                          "gallery_view": "_:boolean",
+                          "shared_screen": "_:boolean"
+                        },
+                        "display_participant_name": "_:boolean",
+                        "recording_thumbnails": "_:boolean",
+                        "optimize_recording_for_3rd_party_video_editor": "_:boolean",
+                        "recording_highlight": "_:boolean",
+                        "save_panelist_chat": "_:boolean",
+                        "save_poll_results": "_:boolean",
+                        "save_close_caption": "_:boolean",
+                        "auto_recording": "_:cloud",
+                        "cloud_recording": "_:boolean",
+                        "host_pause_stop_recording": "_:boolean",
+                        "ip_address_access_control": {
+                          "enable": "_:boolean",
+                          "ip_addresses_or_ranges": "_:string"
+                        },
+                        "local_recording": "_:boolean",
+                        "record_audio_file": "_:boolean",
+                        "record_gallery_view": "_:boolean",
+                        "record_speaker_view": "_:boolean",
+                        "recording_audio_transcript": "_:boolean",
+                        "recording_disclaimer": "_:boolean",
+                        "recording_password_requirement": {
+                          "have_letter": "_:boolean",
+                          "have_number": "_:boolean",
+                          "have_special_character": "_:boolean",
+                          "length": "_:number",
+                          "only_allow_numeric": "_:boolean"
+                        },
+                        "save_chat_text": "_:boolean",
+                        "show_timestamp": "_:boolean"
+                      },
+                      "schedule_meeting": {
+                        "audio_type": "_:string",
+                        "default_password_for_scheduled_meetings": "_:number",
+                        "embed_password_in_join_link": "_:boolean",
+                        "force_pmi_jbh_password": "_:boolean",
+                        "host_video": "_:boolean",
+                        "join_before_host": "_:boolean",
+                        "meeting_password_requirement": {
+                          "consecutive_characters_length": "_:number",
+                          "have_letter": "_:boolean",
+                          "have_number": "_:boolean",
+                          "have_special_character": "_:boolean",
+                          "have_upper_and_lower_characters": "_:boolean",
+                          "length": "_:number",
+                          "only_allow_numeric": "_:boolean",
+                          "weak_enhance_detection": "_:boolean"
+                        },
+                        "participants_video": "_:boolean",
+                        "personal_meeting": "_:boolean",
+                        "pmi_password": "_:number",
+                        "pstn_password_protected": "_:boolean",
+                        "require_password_for_instant_meetings": "_:boolean",
+                        "require_password_for_pmi_meetings": "_:string",
+                        "require_password_for_scheduled_meetings": "_:boolean",
+                        "require_password_for_scheduling_new_meetings": "_:boolean",
+                        "use_pmi_for_instant_meetings": "_:boolean",
+                        "use_pmi_for_scheduled_meetings": "_:boolean"
+                      },
+                      "telephony": {
+                        "audio_conference_info": "_:string",
+                        "show_international_numbers_link": "_:boolean",
+                        "telephony_regions": {
+                          "allowed_values": ["_:string"],
+                          "selection_values": "_:string"
+                        },
+                        "third_party_audio": "_:boolean"
+                      },
+                      "tsp": {
+                        "call_out": "_:boolean",
+                        "call_out_countries": ["_:string"],
+                        "show_international_numbers_link": "_:boolean"
+                      }
                 }
             }
            
@@ -45,7 +475,6 @@
         "config": {
             "baseUrl": "{tenant_id}",
             "get": {
-                "maxPageCount": 500,
                 "query_parameters": {
                 },
                 "pagination": {
@@ -54,7 +483,7 @@
                     "totalPageAttribute": "page_count",
                     "params":{
                         "page_number":"{page_number}",
-                        "page_size":300
+                        "page_size":"{page_size}"
                     }
                 }
             },
@@ -79,6 +508,13 @@
         }
     },
     "connection": {
-        "items": []
+        "items": [
+            {
+                "name": "page_size",
+                "type": "textbox",
+                "label": "Page Size:",
+                "value": "300"
+              }
+        ]
     }
 }
