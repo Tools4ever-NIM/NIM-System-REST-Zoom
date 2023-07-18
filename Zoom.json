@@ -132,6 +132,8 @@
                     "usersList": {
                         "method": "get",
                         "call": {
+                            "mode": "normal",
+                            "path": "/users"
                             "path": "/users",
                             "post_processing": "child_tables"
                         },
@@ -473,7 +475,7 @@
     },
     "rest": {
         "config": {
-            "baseUrl": "{tenant_id}",
+            "baseUrl": "https://api.zoom.us/v2/",
             "get": {
                 "query_parameters": {
                 },
