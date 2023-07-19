@@ -233,7 +233,7 @@
                             "mode": "iteration",
                             "table": "users",
                             "iterator": "id",
-                            "path": "/users/{iterator}/settings",
+                            "path": "/v2/users/{iterator}/settings",
                             "base": {
                                 "userId": "{iterator}"
                             }
@@ -487,7 +487,7 @@
                     }
                 }
             },
-            "authentication": "client_credentials",
+            "authentication": "custom_post_token",
             "call_handling": "generic",
             "test_connection": {
                 "url": "/v2/users/me"
@@ -495,11 +495,14 @@
             "accept": "application/json"
         },
         "authOptions": {
+            "type": "custom_post_token",
             "useBasicAuthPost": true,
             "authUrl": "https://zoom.us/oauth/token",
-            "grantType": "account_credentials",
-            "directToken":true,
+            "postAsForm": true,
+            "tokenPath": "access_token",
+            "directToken": true,
             "postData": {
+                "grant_type": "account_credentials",
                 "account_id": "{account_id}"
             }
         }
