@@ -497,6 +497,7 @@
             "accept": "application/json"
         },
         "authOptions": {
+            "useBasicAuthPost": true,
             "authUrl": "https://api.zoom.us/oauth/token",
             "directToken":true,
             "JWT": {
