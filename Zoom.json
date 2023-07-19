@@ -492,7 +492,21 @@
             "test_connection": {
                 "url": "/v2/users/me"
             },
-            "accept": "application/json"
+            "accept": "application/json",
+            "retry": [
+                {
+                    "type": "statusCode",
+                    "statusCode": 429,
+                    "retry": {
+                        "type": "simple",
+                        "maxCount": 12,
+                        "waitTime": 5
+                    }
+                },
+                {
+                    "type": "connectionError"
+                }
+            ]
         },
         "authOptions": {
             "type": "custom_post_token",
