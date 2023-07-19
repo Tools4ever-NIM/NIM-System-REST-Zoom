@@ -7,7 +7,7 @@
                     "devicesList": {
                         "method": "get",
                         "call": {
-                            "path": "/devices"
+                            "path": "/v2/devices"
                         },
                         "processing_options": {
                             "output_field": "devices"
@@ -30,7 +30,7 @@
                     "groupsList": {
                         "method": "get",
                         "call": {
-                            "path": "/groups"
+                            "path": "/v2/groups"
                         },
                         "processing_options": {
                             "output_field": "groups"
@@ -51,7 +51,7 @@
                     "rolesList": {
                         "method": "get",
                         "call": {
-                            "path": "/roles"
+                            "path": "/v2/roles"
                         },
                         "processing_options": {
                             "output_field": "roles"
@@ -73,7 +73,7 @@
                     "roomsList": {
                         "method": "get",
                         "call": {
-                            "path": "/rooms"
+                            "path": "/v2/rooms"
                         },
                         "processing_options": {
                             "output_field": "rooms"
@@ -132,9 +132,7 @@
                     "usersList": {
                         "method": "get",
                         "call": {
-                            "mode": "normal",
-                            "path": "/users"
-                            "path": "/users",
+                            "path": "/v2/users",
                             "post_processing": "child_tables"
                         },
                         "processing_options": {
@@ -179,7 +177,7 @@
                             "mode": "iteration",
                             "table": "users",
                             "iterator": "id",
-                            "path": "/users/{iterator}/assistants",
+                            "path": "/v2/users/{iterator}/assistants",
                             "base": {
                                 "userId": "{iterator}"
                             }
@@ -207,7 +205,7 @@
                             "mode": "iteration",
                             "table": "users",
                             "iterator": "id",
-                            "path": "/users/{iterator}/permissions",
+                            "path": "/v2/users/{iterator}/permissions",
                             "base": {
                                 "userId": "{iterator}"
                             }
@@ -475,7 +473,7 @@
     },
     "rest": {
         "config": {
-            "baseUrl": "https://api.zoom.us/v2/",
+            "baseUrl": "https://{tenant_id}",
             "get": {
                 "query_parameters": {
                 },
@@ -489,23 +487,20 @@
                     }
                 }
             },
-            "authentication": "jwt",
+            "authentication": "client_credentials",
             "call_handling": "generic",
             "test_connection": {
-                "url": "/users"
+                "url": "/v2/users/me"
             },
             "accept": "application/json"
         },
         "authOptions": {
-            "authUrl": "https://api.zoom.us/oauth/token",
+            "useBasicAuthPost": true,
+            "authUrl": "https://zoom.us/oauth/token",
+            "grantType": "account_credentials",
             "directToken":true,
-            "JWT": {
-                "iss": {
-                    "name": "clientId"
-                },
-                "exp": {
-                    "name": "oneHour"
-                }
+            "postData": {
+                "account_id": "{account_id}"
             }
         }
     },
@@ -516,6 +511,12 @@
                 "type": "textbox",
                 "label": "Page Size:",
                 "value": "300"
+              },
+              {
+                "name": "account_id",
+                "type": "textbox",
+                "label": "Account ID:",
+                "value": ""
               }
         ]
     }
