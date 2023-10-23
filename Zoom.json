@@ -46,6 +46,91 @@
                     "total_members": "number*"
                 }
             },
+            "group_members": {
+                "operations": {
+                    "group_membersList": {
+                        "method": "get",
+                        "call": {
+                            "mode": "iteration",
+                            "table": "groups",
+                            "iterator": "id",
+                            "path": "/v2/groups/{iterator}/members",
+                            "base": {
+                                "groupId": "{iterator}"
+                            }
+                        },
+                        "processing_options": {
+                            "output_field": "members"
+                        },
+                        "query_parameters": {},
+                        "maxSessionCount": 5
+                    },
+                    "group_member_add": {
+                        "method": "post",
+                        "call": {
+                            "mode": "normal",
+                            "path": "/v2/groups/{groupId}/members"
+                        },
+                        "semantics": "create",
+                        "resource_allowance_default": "prohibited",
+                        "resource_prohibited": [
+                        ],
+                        "resource_mandatory": [
+                            "groupId"
+                            ,"id"
+                        ],
+                        "body": {
+                            "members":[
+                                {
+                                    "id": "{id}"
+                                }
+                            ]
+                        },
+                        "warning_only": [
+                        ]
+                    },
+                    "group_member_remove": {
+                        "method": "delete",
+                        "call": {
+                            "mode": "normal",
+                            "path": "/v2/groups/{groupId}/members/{id}"
+                        },
+                        "semantics": "delete",
+                        "resource_allowance_default": "prohibited",
+                        "resource_prohibited": [
+                        ],
+                        "resource_mandatory": [
+                            "groupId",
+                            "id"
+                        ],
+                        "warning_only": [
+                        ]
+                    }
+                },
+                "groupmembership": {
+                    "add_operation": "group_member_add",
+                    "remove_operation": "group_member_remove",
+                    "member_table": "users",
+                    "group_table": "groups",
+                    "member_attributes": {
+                        "id": "id",
+                        "email": "member_name"
+                    },
+                    "group_attributes": {
+                        "id": "groupId",
+                        "name": "group_name"
+                    }
+                },
+                "parameters": {},
+                "resources": {
+                    "groupId":"_nim**",
+                    "id": "string*",
+                    "email": "string*",
+                    "first_name": "string*",
+                    "last_name": "string*",
+                    "type": "string*"
+                }
+            },
             "roles": {
                 "operations": {
                     "rolesList": {
@@ -186,7 +271,7 @@
                             "output_field": "assistants"
                         },
                         "query_parameters": {},
-                        "maxSessionCount": 20
+                        "maxSessionCount": 5
                     }
                 },
                 "parameters": {},
@@ -215,7 +300,7 @@
                             "stringArrayColumnName": "permission"
                         },
                         "query_parameters": {},
-                        "maxSessionCount": 20
+                        "maxSessionCount": 5
                     }
                 },
                 "parameters": {},
@@ -242,7 +327,7 @@
                             "output_field": null
                         },
                         "query_parameters": {},
-                        "maxSessionCount": 20
+                        "maxSessionCount": 5
                     }
                 },
                 "parameters": {},
