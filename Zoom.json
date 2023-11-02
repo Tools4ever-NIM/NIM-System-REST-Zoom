@@ -558,7 +558,7 @@
     },
     "rest": {
         "config": {
-            "baseUrl": "https://{tenant_id}",
+            "baseUrl": "https://api.zoom.us",
             "get": {
                 "query_parameters": {
                 },
