@@ -224,7 +224,54 @@
                             "output_field": "users"
                         },
                         "query_parameters": {}
+                    },
+                    "user_update": {
+                        "method": "patch",
+                        "call": {
+                            "mode": "normal",
+                            "path": "/v2/users/{id}"
+                        },
+                        "semantics": "update",
+                        "resource_allowance_default": "optional",
+                        "resource_prohibited": [
+                            "verified",
+                            "created_at",
+                            "last_login_time",
+                            "last_client_version",
+                            "pic_url",
+                            "group_ids",
+                            "role_id"
+                        ],
+                        "resource_mandatory": [
+                            "id"
+                        ]
+                    },
+                    "user_delete": {
+                        "method": "delete",
+                        "call": {
+                            "mode": "normal",
+                            "path": "/v2/users/{id}",
+                            "post_processing": "child_tables"
+                        },
+                        "semantics": "delete",
+                        "resource_allowance_default": "prohibited",
+                        "resource_mandatory": [
+                            "id"
+                        ]
+                    },
+                    "user_delete_profilepicture": {
+                        "method": "delete",
+                        "call": {
+                            "mode": "normal",
+                            "path": "/v2/users/{id}/picture",
+                            "post_processing": "child_tables"
+                        },
+                        "resource_allowance_default": "prohibited",
+                        "resource_mandatory": [
+                            "id"
+                        ]
                     }
+                    
                 },
                 "parameters": {},
                 "key": "id",
