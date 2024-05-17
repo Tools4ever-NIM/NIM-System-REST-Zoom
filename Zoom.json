@@ -36,6 +36,38 @@
                             "output_field": "groups"
                         },
                         "query_parameters": {}
+                    },
+                    "groupCreate": {
+                        "method": "post",
+                        "call": {
+                            "mode": "normal",
+                            "path": "/v2/groups"
+                        },
+                        "query_parameters": {},
+                        "body":{
+                            "_nim_merge_attributes_": false
+                        },
+                        "semantics": "create",
+                        "resource_allowance_default": "mandatory",
+                        "resource_mandatory": [
+                            "name"
+                        ]
+                    },
+                    "groupDelete": {
+                        "method": "delete",
+                        "call": {
+                            "mode": "normal",
+                            "path": "/v2/groups/{id}"
+                        },
+                        "query_parameters": {},
+                        "body":{
+                            "_nim_merge_attributes_": false
+                        },
+                        "semantics": "delete",
+                        "resource_allowance_default": "mandatory",
+                        "resource_mandatory": [
+                            "id"
+                        ]
                     }
                 },
                 "parameters": {},
@@ -63,7 +95,7 @@
                             "output_field": "members"
                         },
                         "query_parameters": {},
-                        "maxSessionCount": 5
+                        "maxSessionCount": 20
                     },
                     "group_member_add": {
                         "method": "post",
@@ -119,6 +151,90 @@
                     "group_attributes": {
                         "id": "groupId",
                         "name": "group_name"
+                    }
+                },
+                "parameters": {},
+                "resources": {
+                    "groupId":"_nim**",
+                    "id": "string*",
+                    "email": "string*",
+                    "first_name": "string*",
+                    "last_name": "string*",
+                    "type": "string*"
+                }
+            },
+            "group_admins": {
+                "operations": {
+                    "group_adminsList": {
+                        "method": "get",
+                        "call": {
+                            "mode": "iteration",
+                            "table": "groups",
+                            "iterator": "id",
+                            "path": "/v2/groups/{iterator}/admins",
+                            "base": {
+                                "groupId": "{iterator}"
+                            }
+                        },
+                        "processing_options": {
+                            "output_field": "admins"
+                        },
+                        "query_parameters": {},
+                        "maxSessionCount": 20
+                    },
+                    "group_admin_add": {
+                        "method": "post",
+                        "call": {
+                            "mode": "normal",
+                            "path": "/v2/groups/{groupId}/admin"
+                        },
+                        "semantics": "create",
+                        "resource_allowance_default": "prohibited",
+                        "resource_prohibited": [
+                        ],
+                        "resource_mandatory": [
+                            "groupId"
+                            ,"id"
+                        ],
+                        "body": {
+                            "admins":[
+                                {
+                                    "id": "{id}"
+                                }
+                            ]
+                        },
+                        "warning_only": [
+                        ]
+                    },
+                    "group_admin_remove": {
+                        "method": "delete",
+                        "call": {
+                            "mode": "normal",
+                            "path": "/v2/groups/{groupId}/admins/{id}"
+                        },
+                        "semantics": "delete",
+                        "resource_allowance_default": "prohibited",
+                        "resource_prohibited": [
+                        ],
+                        "resource_mandatory": [
+                            "groupId",
+                            "id"
+                        ],
+                        "warning_only": [
+                        ]
+                    }
+                },
+                "groupmembership": {
+                    "add_operation": "group_admin_add",
+                    "remove_operation": "group_admin_remove",
+                    "member_table": "users",
+                    "group_table": "groups",
+                    "member_attributes": {
+                        "id": "id",
+                        "email": "email"
+                    },
+                    "group_attributes": {
+                        "id": "groupId"
                     }
                 },
                 "parameters": {},
@@ -224,6 +340,124 @@
                             "output_field": "users"
                         },
                         "query_parameters": {}
+                    },
+                    "userCreate": {
+                        "method": "post",
+                        "call": {
+                            "mode": "normal",
+                            "path": "/v2/users"
+                        },
+                        "query_parameters": {},
+                        "body":{
+                            "_nim_merge_attributes_": false
+                        },
+                        "semantics": "create",
+                        "resource_allowance_default": "optional",
+                        "resource_prohibited": [
+                            "id",
+                            "pmi",
+                            "timezone",
+                            "verified",
+                            "dept",
+                            "created_at",
+                            "last_login_time",
+                            "last_client_version",
+                            "pic_url",
+                            "group_ids",
+                            "language",
+                            "phone_number",
+                            "status",
+                            "role_id"
+                        ],
+                        "resource_mandatory": [
+                            "action",
+                            "email",
+                            "type"
+                        ]
+                    },
+                    "userUpdate": {
+                        "method": "post",
+                        "call": {
+                            "mode": "normal",
+                            "path": "/v2/users/{id}"
+                        },
+                        "query_parameters": {},
+                        "body":{
+                            "_nim_merge_attributes_": false
+                        },
+                        "semantics": "update",
+                        "resource_allowance_default": "optional",
+                        "resource_prohibited": [
+                        ],
+                        "resource_mandatory": [
+                            "id"
+                        ]
+                    },
+                    "userUpdatePassword": {
+                        "method": "put",
+                        "call": {
+                            "mode": "normal",
+                            "path": "/v2/users/{id}/password"
+                        },
+                        "query_parameters": {},
+                        "body":{
+                            "_nim_merge_attributes_": false,
+                            "password": "{password}"
+                        },
+                        "resource_allowance_default": "mandatory",
+                        "resource_mandatory": [
+                            "id",
+                            "password"
+                        ]
+                    },
+                    "userUpdateStatus": {
+                        "method": "put",
+                        "call": {
+                            "mode": "normal",
+                            "path": "/v2/users/{id}/status"
+                        },
+                        "query_parameters": {},
+                        "body":{
+                            "_nim_merge_attributes_": false,
+                            "action": "{action}"
+                        },
+                        "resource_allowance_default": "mandatory",
+                        "resource_mandatory": [
+                            "id",
+                            "action"
+                        ]
+                    },
+                    "userRevokeToken": {
+                        "method": "delete",
+                        "call": {
+                            "mode": "normal",
+                            "path": "/v2/users/{id}/token"
+                        },
+                        "query_parameters": {},
+                        "body":{
+                            "_nim_merge_attributes_": false
+                        },
+                        "semantics": "delete",
+                        "resource_allowance_default": "mandatory",
+                        "resource_mandatory": [
+                            "id"
+                        ]
+                    },
+                    "userDelete": {
+                        "method": "delete",
+                        "call": {
+                            "mode": "normal",
+                            "path": "/v2/users/{id}"
+                        },
+                        "query_parameters": {},
+                        "body":{
+                            "_nim_merge_attributes_": false
+                        },
+                        "semantics": "delete",
+                        "resource_allowance_default": "mandatory",
+                        "resource_mandatory": [
+                            "id"
+                        ]
                     }
                 },
                 "parameters": {},
@@ -233,6 +467,7 @@
                     "first_name": "string*",
                     "last_name": "string*",
                     "email": "string*",
+                    "employee_unique_id":  "string*",
                     "type": "number*",
                     "pmi": "number*",
                     "timezone": "string*",
@@ -249,9 +484,21 @@
                     "role_id": "string*",
                     "action":"string",
                     "feature": {
-                        "zoom_phone":"_:string"
-                    }
-                    
+                        "zoom_phone":"_:string",
+                        "zoom_one_type":"_:string"
+                    },
+                    "plan_united_type": "string",
+                    "password": "string",
+                    "display_name": "string",
+                    "custom_attributes": [
+                        {
+                            "key": "string*",
+                            "name": "string*",
+                            "value": "string*"
+                        }
+                    ],
+                    "host_key":"string*",
+                    "im_group_ids": ["string*"]
                 }
             },
             "users_assistants": {
@@ -271,7 +518,44 @@
                             "output_field": "assistants"
                         },
                         "query_parameters": {},
-                        "maxSessionCount": 5
+                        "maxSessionCount": 20
+                    },
+                    "users_assistantCreate": {
+                        "method": "post",
+                        "call": {
+                            "mode": "normal",
+                            "path": "/v2/users/{userId}/assistants"
+                        },
+                        "query_parameters": {},
+                        "body":{
+                            "_nim_merge_attributes_": false,
+                            "assistants": {
+                                "id": "{id}"
+                            }
+                        },
+                        "semantics": "create",
+                        "resource_allowance_default": "mandatory",
+                        "resource_mandatory": [
+                            "id",
+                            "userId"
+                        ]
+                    },
+                    "users_assistantDelete": {
+                        "method": "delete",
+                        "call": {
+                            "mode": "normal",
+                            "path": "/v2/users/{userId}/assistants/{id}"
+                        },
+                        "query_parameters": {},
+                        "body":{
+                            "_nim_merge_attributes_": false
+                        },
+                        "semantics": "delete",
+                        "resource_allowance_default": "mandatory",
+                        "resource_mandatory": [
+                            "id",
+                            "userId"
+                        ]
                     }
                 },
                 "parameters": {},
@@ -282,6 +566,101 @@
                     "userId": "string*"
                 }
             },
+            "users_details": {
+                "operations": {
+                    "users_detailsList": {
+                        "method": "get",
+                        "call": {
+                            "mode": "iteration",
+                            "table": "users",
+                            "iterator": "id",
+                            "path": "/v2/users/{iterator}",
+                            "base": {
+                                "userId": "{iterator}"
+                            }
+                        },
+                        "processing_options": {
+                            "output_field": null
+                        },
+                        "query_parameters": {},
+                        "maxSessionCount": 20
+                    },
+                    "users_detailsUpdate": {
+                        "method": "post",
+                        "call": {
+                            "mode": "normal",
+                            "path": "/v2/users/{id}"
+                        },
+                        "query_parameters": {},
+                        "body":{
+                            "_nim_merge_attributes_": false
+                        },
+                        "semantics": "update",
+                        "resource_allowance_default": "optional",
+                        "resource_prohibited": [
+                        ],
+                        "resource_mandatory": [
+                            "id"
+                        ]
+                    }
+                },
+                "parameters": {},
+                "key": "id",
+                "resources": {
+                    "account_id":  "string*",
+                    "account_number":  "datetime*",
+                    "cluster":  "string*",
+                    "cms_user_id":  "string*",
+                    "company":  "string*",
+                    "custom_attributes": [
+                        {
+                            "key": "string*",
+                            "name": "string*",
+                            "value": "string*"
+                        }
+                    ],
+                    "dept":  "string*",
+                    "display_name":  "string*",
+                    "email":  "string*",
+                    "employee_unique_id":  "string*",
+                    "first_name":  "string*",
+                    "group_ids": "string*",
+                    "id":  "string*",
+                    "jid":  "string*",
+                    "job_title":  "string*",
+                    "language":  "string*",
+                    "last_client_version":  "string*",
+                    "last_login_time":  "string*",
+                    "last_name":  "string*",
+                    "im_group_ids": "string*",
+                    "location":  "string*",
+                    "login_types": "string*",
+                    "manager":  "string*",
+                    "personal_meeting_url":  "string*",
+                    "phone_numbers": [ {
+                        "code": "string*",
+                        "country": "string*",
+                        "label": "string*",
+                        "number": "string*",
+                        "verified": "boolean*"
+                    }],
+                    "pic_url":  "string*",
+                    "plan_united_type":  "string*",
+                    "pmi":  "datetime*",
+                    "pronouns":  "string*",
+                    "pronouns_option":  "datetime*",
+                    "role_id":  "string*",
+                    "role_name":  "string*",
+                    "status":  "string*",
+                    "timezone":  "string*",
+                    "type":  "datetime*",
+                    "use_pmi":  "boolean*",
+                    "user_created_at":  "string*",
+                    "vanity_url":  "string*",
+                    "verified":  "datetime*",
+                    "zoom_one_type":  "datetime*"
+                }
+            },           
             "users_permissions": {
                 "operations": {
                     "users_permissionsList": {
@@ -300,7 +679,7 @@
                             "stringArrayColumnName": "permission"
                         },
                         "query_parameters": {},
-                        "maxSessionCount": 5
+                        "maxSessionCount": 20
                     }
                 },
                 "parameters": {},
@@ -327,7 +706,7 @@
                             "output_field": null
                         },
                         "query_parameters": {},
-                        "maxSessionCount": 5
+                        "maxSessionCount": 20
                     }
                 },
                 "parameters": {},
