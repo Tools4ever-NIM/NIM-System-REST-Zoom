@@ -247,6 +247,270 @@
                     "type": "string*"
                 }
             },
+            "phone_devices": {
+                "operations": {
+                    "phone_devicesList": {
+                        "method": "get",
+                        "call": {
+                            "path": "/v2/phone/devices"
+                        },
+                        "processing_options": {
+                            "output_field": "devices"
+                        },
+                        "query_parameters": {}
+                    }
+                },
+                "parameters": {},
+                "key": "id",
+                "resources": {
+                    "assignee": {
+                        "extension_number": "_:string*",
+                        "id": "_:string*",
+                        "name": "_:string*",
+                        "extension_type": "_:string*"
+                      },
+                      "assignees": [
+                        {
+                          "extension_number": "string*",
+                          "id": "string*",
+                          "name": "string*",
+                          "extension_type": "string*",
+                          "extension_id": "string*"
+                        }
+                      ],
+                      "device_type": "string*",
+                      "display_name": "string*",
+                      "id": "string*",
+                      "mac_address": "string*",
+                      "site": {
+                        "id": "_:string*",
+                        "name": "_:string*"
+                      },
+                      "status": "string*",
+                      "provision_template_id": "string*"
+                }
+            },
+            "phone_sites": {
+                "operations": {
+                    "phone_devicesList": {
+                        "method": "get",
+                        "call": {
+                            "path": "/v2/phone/sites"
+                        },
+                        "processing_options": {
+                            "output_field": "sites"
+                        },
+                        "query_parameters": {}
+                    }
+                },
+                "parameters": {},
+                "key": "id",
+                "resources": {
+                    "country": {
+                        "code": "_:string*",
+                        "name": "_:string*"
+                      },
+                      "id": "string*",
+                      "main_auto_receptionist": {
+                        "extension_id": "_:string*",
+                        "extension_number": "_:string*",
+                        "id": "_:string*",
+                        "name": "_:string*"
+                      },
+                      "name": "string*",
+                      "site_code": "string*"
+                }
+            },
+            "phone_users": {
+                "operations": {
+                    "phone_usersList": {
+                        "method": "get",
+                        "call": {
+                            "path": "/v2/phone/users"
+                        },
+                        "processing_options": {
+                            "output_field": "users"
+                        },
+                        "query_parameters": {}
+                    }
+                },
+                "parameters": {},
+                "key": "id",
+                "resources": {
+                    "calling_plans": [
+                        {
+                          "name": "string*",
+                          "type": "string*",
+                          "billing_account_id": "string*",
+                          "billing_account_name": "string*"
+                        }
+                      ],
+                      "email": "string*",
+                      "extension_id": "string*",
+                      "extension_number": "string*",
+                      "id": "string*",
+                      "name": "string*",
+                      "phone_user_id": "string*",
+                      "site": {
+                        "id": "_:string*",
+                        "name": "_:string*"
+                      },
+                      "status": "string*",
+                      "phone_numbers": [
+                        {
+                          "id": "string*",
+                          "number": "string*"
+                        }
+                      ],
+                      "department": "string*",
+                      "cost_center": "string*"
+                }
+            },
+            "phone_users_settings": {
+                "operations": {
+                    "phone_users_settingsList": {
+                        "method": "get",
+                        "call": {
+                            "mode": "iteration",
+                            "table": "phone_users",
+                            "iterator": "id",
+                            "path": "/v2/phone/users/{iterator}/settings",
+                            "base": {
+                                "userId": "{iterator}"
+                            }
+                        },
+                        "processing_options": {
+                            "output_field": null
+                        },
+                        "query_parameters": {},
+                        "maxSessionCount": 20
+                    },
+                    "phone_users_settings_pincode_Update": {
+                        "method": "patch",
+                        "call": {
+                            "mode": "normal",
+                            "path": "/v2/phone/users/{userId}/settings/desk_phone"
+                        },
+                        "query_parameters": {},
+                        "body":{
+                            "_nim_merge_attributes_": false,
+                            "desk_phone": {
+                                "pin_code": "{desk_phone.pin_code}"
+                            }
+                        },
+                        "semantics": "update",
+                        "resource_allowance_default": "prohibited",
+                        "resource_mandatory": [
+                            "userId",
+                            "desk_phone_pin_code"
+                        ]
+                    }
+                },
+                "parameters": {},
+                "key": "userId",
+                "resources": {
+                    "userId":"string*",
+                    "area_code": "string*",
+                    "audio_prompt_language": "string*",
+                    "company_number": "string*",
+                    "country": {
+                      "code": "_:string*",
+                      "country_code": "_:string*",
+                      "name": "_:string*"
+                    },
+                    "delegation": {
+                      "assistants": [
+                        {
+                          "display_name": "string*",
+                          "extension_id": "string*",
+                          "extension_number": "string*",
+                          "extension_type": "string*",
+                          "id": "string*"
+                        }
+                      ],
+                      "privacy": "_:boolean*",
+                      "privileges": "_:string*",
+                      "locked": "_:boolean*"
+                    },
+                    "desk_phone": {
+                      "devices": [
+                        {
+                          "device_type": "string*",
+                          "display_name": "string*",
+                          "id": "string*",
+                          "policy": {
+                            "call_control": {
+                              "status": "_:string*"
+                            },
+                            "hot_desking": {
+                              "status": "_:string*"
+                            }
+                          },
+                          "status": "string*"
+                        }
+                      ],
+                      "keys_positions": {
+                        "primary_number": "_:string*"
+                      },
+                      "phone_screen_lock": "_:boolean",
+                      "pin_code": "_:string*"
+                    },
+                    "extension_number": "string*",
+                    "music_on_hold_id": "string*",
+                    "outbound_caller": {
+                      "number": "_:string*"
+                    },
+                    "outbound_caller_ids": [
+                      {
+                        "is_default": "boolean*",
+                        "name": "string*",
+                        "number": "string*"
+                      }
+                    ],
+                    "status": "string*",
+                    "voice_mail": [
+                      {
+                        "access_user_id": "string*",
+                        "delete": "boolean*",
+                        "download": "boolean*",
+                        "shared_id": "string*"
+                      }
+                    ],
+                    "intercom": {
+                      "audio_intercoms": [
+                        {
+                          "extension_id": "string*",
+                          "extension_number": "string*",
+                          "extension_type": "string*",
+                          "display_name": "string*",
+                          "status": "string*",
+                          "device_id": "string*",
+                          "device_status": "string*"
+                        }
+                      ],
+                      "device": {
+                        "id": "_:string*",
+                        "name": "_:string*"
+                      }
+                    },
+                    "auto_call_recording_access_members": [
+                      {
+                        "access_user_id": "string*",
+                        "allow_delete": "boolean*",
+                        "allow_download": "boolean*",
+                        "shared_id": "string*"
+                      }
+                    ],
+                    "ad_hoc_call_recording_access_members": [
+                      {
+                        "access_user_id": "string*",
+                        "allow_delete": "boolean*",
+                        "allow_download": "boolean*",
+                        "shared_id": "string*"
+                      }
+                    ]
+                }
+            },
             "roles": {
                 "operations": {
                     "rolesList": {
