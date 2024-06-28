@@ -6,6 +6,10 @@
 - Devices
 - Groups
 - Group Members
+- Phone Devices
+- Phone Sites
+- Phone Users
+- Phone User Settings
 - Roles
 - Rooms
 - SIP Phones
@@ -18,6 +22,12 @@
 # Actions
 - Group Members
     - Add/Remove
+- Users
+    - Create/Update/Delete
+    - Reset Password
+    - Revoke Token
+- Phone Users Settings
+    - Update Pin Code
  
       
 # NIM Docs
