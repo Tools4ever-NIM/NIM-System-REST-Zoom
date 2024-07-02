@@ -614,9 +614,6 @@
                             "path": "/v2/users"
                         },
                         "query_parameters": {},
-                        "body":{
-                            "_nim_merge_attributes_": false
-                        },
                         "semantics": "create",
                         "resource_allowance_default": "optional",
                         "resource_prohibited": [
@@ -642,15 +639,12 @@
                         ]
                     },
                     "userUpdate": {
-                        "method": "post",
+                        "method": "patch",
                         "call": {
                             "mode": "normal",
                             "path": "/v2/users/{id}"
                         },
                         "query_parameters": {},
-                        "body":{
-                            "_nim_merge_attributes_": false
-                        },
                         "semantics": "update",
                         "resource_allowance_default": "optional",
                         "resource_prohibited": [
