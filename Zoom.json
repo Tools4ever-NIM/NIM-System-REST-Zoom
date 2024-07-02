@@ -603,7 +603,9 @@
                         "processing_options": {
                             "output_field": "users"
                         },
-                        "query_parameters": {}
+                        "query_parameters": {
+                            "include_fields": "custom_attributes"
+                        }
                     },
                     "userCreate": {
                         "method": "post",
