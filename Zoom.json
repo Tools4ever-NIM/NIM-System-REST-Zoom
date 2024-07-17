@@ -48,7 +48,7 @@
                             "_nim_merge_attributes_": false
                         },
                         "semantics": "create",
-                        "resource_allowance_default": "mandatory",
+                        "resource_allowance_default": "prohibited",
                         "resource_mandatory": [
                             "name"
                         ]
@@ -64,7 +64,7 @@
                             "_nim_merge_attributes_": false
                         },
                         "semantics": "delete",
-                        "resource_allowance_default": "mandatory",
+                        "resource_allowance_default": "prohibited",
                         "resource_mandatory": [
                             "id"
                         ]
@@ -664,7 +664,7 @@
                             "_nim_merge_attributes_": false,
                             "password": "{password}"
                         },
-                        "resource_allowance_default": "mandatory",
+                        "resource_allowance_default": "prohibited",
                         "resource_mandatory": [
                             "id",
                             "password"
@@ -681,7 +681,7 @@
                             "_nim_merge_attributes_": false,
                             "action": "{action}"
                         },
-                        "resource_allowance_default": "mandatory",
+                        "resource_allowance_default": "prohibited",
                         "resource_mandatory": [
                             "id",
                             "action"
@@ -698,7 +698,7 @@
                             "_nim_merge_attributes_": false
                         },
                         "semantics": "delete",
-                        "resource_allowance_default": "mandatory",
+                        "resource_allowance_default": "prohibited",
                         "resource_mandatory": [
                             "id"
                         ]
@@ -714,7 +714,7 @@
                             "_nim_merge_attributes_": false
                         },
                         "semantics": "delete",
-                        "resource_allowance_default": "mandatory",
+                        "resource_allowance_default": "prohibited",
                         "resource_mandatory": [
                             "id"
                         ]
@@ -794,7 +794,7 @@
                             }
                         },
                         "semantics": "create",
-                        "resource_allowance_default": "mandatory",
+                        "resource_allowance_default": "prohibited",
                         "resource_mandatory": [
                             "id",
                             "userId"
@@ -811,7 +811,7 @@
                             "_nim_merge_attributes_": false
                         },
                         "semantics": "delete",
-                        "resource_allowance_default": "mandatory",
+                        "resource_allowance_default": "prohibited",
                         "resource_mandatory": [
                             "id",
                             "userId"
