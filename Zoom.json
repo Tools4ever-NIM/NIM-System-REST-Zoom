@@ -1202,13 +1202,19 @@
                 "query_parameters": {
                 },
                 "pagination": {
-                    "mode": "generic",
-                    "path":[],
-                    "totalPageAttribute": "page_count",
-                    "params":{
-                        "page_number":"{page_number}",
-                        "page_size":"{page_size}"
-                    }
+                    "mode": "url",
+                    "replace_in_url": true,
+                    "last_page": {
+                       "type": "token",
+                       "path": "next_page_token"
+                    },
+                    "query_params": [{
+                        "name": "next_page_token",
+                        "value": {
+                            "type": "response_field",
+                            "value": "next_page_token"
+                        }
+                    }]
                 }
             },
             "authentication": "custom_post_token",
