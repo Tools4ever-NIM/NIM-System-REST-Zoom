@@ -592,13 +592,41 @@
                     "voice_mail": "string*"
                 }
             },
+            "users_status": {
+                "operations": {
+                    "users_status_get": {
+                        "method": "get",
+                        "call": {
+                            "mode": "constant",
+                            "values": [
+                                {
+                                    "name": "active"
+                                },
+                                {
+                                    "name": "inactive"
+                                },
+                                {
+                                    "name": "pending"
+                                }
+                                
+                            ]
+                        }
+                    }
+                },
+                "key": "name",
+                "resources": {
+                    "name": "string*"
+                }
+            },
             "users": {
                 "operations": {
                     "usersList": {
                         "method": "get",
                         "call": {
-                            "path": "/v2/users",
-                            "post_processing": "child_tables"
+                            "mode": "iteration",
+                            "table": "users_status",
+                            "iterator": "name",
+                            "path": "/v2/users?status={iterator}"
                         },
                         "processing_options": {
                             "output_field": "users"
