@@ -385,6 +385,24 @@
                         "query_parameters": {},
                         "maxSessionCount": 20
                     },
+                    "phone_users_settings_Update": {
+                        "method": "patch",
+                        "call": {
+                            "mode": "normal",
+                            "path": "/v2/phone/users/{userId}/settings"
+                        },
+                        "query_parameters": {},
+                        "semantics": "update",
+                        "resource_allowance_default": "prohibited",
+                        "resource_mandatory": [
+                            "userId",
+                            "area_code",
+                            "audio_prompt_language",
+                            "country_iso_code",
+                            "music_on_hold_id",
+                            "outbound_caller_id"
+                        ]
+                    },
                     "phone_users_settings_pincode_Update": {
                         "method": "patch",
                         "call": {
@@ -460,6 +478,7 @@
                     "outbound_caller": {
                       "number": "_:string*"
                     },
+                    "outbound_caller_id": "string",
                     "outbound_caller_ids": [
                       {
                         "is_default": "boolean*",
