@@ -27,6 +27,7 @@
     - Reset Password
     - Revoke Token
 - Phone Users Settings
+    - Update 
     - Update Pin Code
  
       
