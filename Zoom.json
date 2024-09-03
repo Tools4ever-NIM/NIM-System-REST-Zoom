@@ -687,6 +687,12 @@
                         },
                         "query_parameters": {},
                         "semantics": "create",
+						"body": {
+							"action": "create",
+							"user_info": {
+								"_nim_merge_attributes_": true
+							}
+						},
                         "resource_allowance_default": "optional",
                         "resource_prohibited": [
                             "id",
