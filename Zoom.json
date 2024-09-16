@@ -670,13 +670,12 @@
                             "mode": "iteration",
                             "table": "users_status",
                             "iterator": "name",
-                            "path": "/v2/users?status={iterator}"
+                            "path": "/v2/users?status={iterator}&include_fields=custom_attributes"
                         },
                         "processing_options": {
                             "output_field": "users"
                         },
                         "query_parameters": {
-                            "include_fields": "custom_attributes"
                         }
                     },
                     "userCreate": {
