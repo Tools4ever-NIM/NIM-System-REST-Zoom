@@ -784,7 +784,7 @@
                         "method": "delete",
                         "call": {
                             "mode": "normal",
-                            "path": "/v2/users/{id}"
+                            "path": "/v2/users/{id}?action={action}"
                         },
                         "query_parameters": {},
                         "body":{
@@ -793,7 +793,8 @@
                         "semantics": "delete",
                         "resource_allowance_default": "prohibited",
                         "resource_mandatory": [
-                            "id"
+                            "id",
+							"action"
                         ]
                     }
                 },
