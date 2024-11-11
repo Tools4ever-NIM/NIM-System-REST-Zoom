@@ -725,12 +725,29 @@
                         "semantics": "update",
                         "resource_allowance_default": "optional",
                         "resource_prohibited": [
+							"email"
                         ],
                         "resource_mandatory": [
                             "id"
                         ]
                     },
-                    "userUpdatePassword": {
+                    "userUpdateEmail": {
+                        "method": "put",
+                        "call": {
+                            "mode": "normal",
+                            "path": "/v2/users/{id}/email"
+                        },
+                        "query_parameters": {},
+                        "semantics": "update",
+                        "resource_allowance_default": "prohibited",
+                        "resource_prohibited": [
+                        ],
+                        "resource_mandatory": [
+                            "id",
+							"email"
+                        ]
+                    },
+					"userUpdatePassword": {
                         "method": "put",
                         "call": {
                             "mode": "normal",
